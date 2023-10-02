@@ -34,6 +34,8 @@ int main() {
         {{0,1},{1,0}}
     };
 
+    
+
     int maxi = 0;
 
     solve(matrix, 0, 0, maxi);
