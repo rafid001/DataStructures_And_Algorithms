@@ -2,6 +2,34 @@
 #include<vector>
 using namespace std;
 
+//RECURSIVE METHOD
+int solve(int m, int n) {
+
+    if(m == 0 && n == 0) return 1;
+    if(m < 0 || n < 0) return 0;
+
+    int up = solve(m-1, n);
+    int left = solve(m, n-1);
+
+    return up + left;
+
+}
+
+//RECURSION + MEMOIZATION
+int solveMem(int m, int n, vector<vector<int>> &dp) {
+
+    if(m == 0 && n == 0) return 1;
+    if(m < 0 && n < 0) return 0;
+    if(dp[m][n] != -1) return dp[m][n];
+
+    int up = solveMem(m-1, n, dp);
+    int left = solveMem(m, n-1, dp);
+
+    return dp[m][n] = up + left;
+
+}
+
+//TABULATION METHOD
 int countWays(int m, int n) {
 
     vector<vector<int>> dp(m, vector<int>(n, 0));
