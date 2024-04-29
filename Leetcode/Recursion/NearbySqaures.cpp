@@ -26,6 +26,44 @@ int minAbs(int index, vector<int> a, vector<int> b, vector<int> &arr, int n) {
 
 }
 
+
+/*
+better optimization, removing vector arrays and using only
+variables to store sum
+*/
+
+int minAbs(int index, int sum_a, int sum_b, vector<int> &arr, int n) {
+
+    if(index == n) {
+        return abs(sum_a*sum_a - sum_b*sum_b);
+    }
+
+    int res1 = minAbs(index+1, sum_a+arr[index], sum_b, arr, n);
+    int res2 = minAbs(index+1, sum_a, sum_b+arr[index], arr, n);
+
+    return min(res1, res2);
+}
+
+/*
+more better optimization using only one state variable because
+if we have sum_a or sum_b, we can easily take out the other by
+subtracting it from the totalsum
+*/
+
+int f(int index, int sum_a, vector<int> &arr, int n, int totSum) {
+
+    if(index == n) {
+        int sum_b = totSum - sum_a;
+        return abs(sum_a*sum_a - sum_b*sum_b);
+    }
+
+    int res1 = f(index+1, sum_a+arr[index], arr, n, totSum);
+    int res2 = f(index+1, sum_a, arr, n, totSum);
+
+    return min(res1,res2);
+}
+
+
 int main() {
     int T;
     cin >> T;
